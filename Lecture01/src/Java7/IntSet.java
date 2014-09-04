@@ -1,50 +1,50 @@
-package Java7;
+ï»¿package Java7;
 /**
- * Êëàññ, ðåàëèçóþùèé ôóíêöèîíàëüíîå ïðåäñòàâëåíèå ìíîæåñòâ öåëûõ.
+ * ÐšÐ»Ð°ÑÑ, Ñ€ÐµÐ°Ð»Ð¸Ð·ÑƒÑŽÑ‰Ð¸Ð¹ Ñ„ÑƒÐ½ÐºÑ†Ð¸Ð¾Ð½Ð°Ð»ÑŒÐ½Ð¾Ðµ Ð¿Ñ€ÐµÐ´ÑÑ‚Ð°Ð²Ð»ÐµÐ½Ð¸Ðµ Ð¼Ð½Ð¾Ð¶ÐµÑÑ‚Ð² Ñ†ÐµÐ»Ñ‹Ñ….
  */
 abstract class IntSet {
-  // Ïðîâåðêà ïðèíàäëåæíîñòè ýëåìåíòà ìíîæåñòâó
+  // ÐŸÑ€Ð¾Ð²ÐµÑ€ÐºÐ° Ð¿Ñ€Ð¸Ð½Ð°Ð´Ð»ÐµÐ¶Ð½Ð¾ÑÑ‚Ð¸ ÑÐ»ÐµÐ¼ÐµÐ½Ñ‚Ð° Ð¼Ð½Ð¾Ð¶ÐµÑÑ‚Ð²Ñƒ
   abstract public boolean has(int elem);
   
-  // Äîáàâëåíèå ýëåìåíòà â ìíîæåñòâî
+  // Ð”Ð¾Ð±Ð°Ð²Ð»ÐµÐ½Ð¸Ðµ ÑÐ»ÐµÐ¼ÐµÐ½Ñ‚Ð° Ð² Ð¼Ð½Ð¾Ð¶ÐµÑÑ‚Ð²Ð¾
   public static IntSet addElement(final IntSet s, final int n) {
     return new IntSet() {
       public boolean has(int elem) { return elem == n || s.has(elem); }
     };
   }
   
-  // Ïîñòðîåíèå ìíîæåñòâà èç äèàïàçîíà ÷èñåë
+  // ÐŸÐ¾ÑÑ‚Ñ€Ð¾ÐµÐ½Ð¸Ðµ Ð¼Ð½Ð¾Ð¶ÐµÑÑ‚Ð²Ð° Ð¸Ð· Ð´Ð¸Ð°Ð¿Ð°Ð·Ð¾Ð½Ð° Ñ‡Ð¸ÑÐµÐ»
   public static IntSet buildInterval(final int n, final int m) {
     return new IntSet() {
       public boolean has(int elem) { return elem >= n && elem <= m; }
     };
   }
   
-  // Îáúåäèíåíèå ìíîæåñòâ
+  // ÐžÐ±ÑŠÐµÐ´Ð¸Ð½ÐµÐ½Ð¸Ðµ Ð¼Ð½Ð¾Ð¶ÐµÑÑ‚Ð²
   public static IntSet union(final IntSet s1, final IntSet s2) {
     return new IntSet() {
       public boolean has(int elem) { return s1.has(elem) || s2.has(elem); }
     };
   }
   
-  // Ïåðåñå÷åíèå ìíîæåñòâ
+  // ÐŸÐµÑ€ÐµÑÐµÑ‡ÐµÐ½Ð¸Ðµ Ð¼Ð½Ð¾Ð¶ÐµÑÑ‚Ð²
   public static IntSet intersection(final IntSet s1, final IntSet s2) {
     return new IntSet() {
       public boolean has(int elem) { return s1.has(elem) && s2.has(elem); }
     };
   }
   
-  // Ðàçíîñòü ìíîæåñòâ
+  // Ð Ð°Ð·Ð½Ð¾ÑÑ‚ÑŒ Ð¼Ð½Ð¾Ð¶ÐµÑÑ‚Ð²
   public static IntSet difference(final IntSet s1, final IntSet s2) {
     return new IntSet() {
       public boolean has(int elem) { return s1.has(elem) && ! s2.has(elem); }
     };
   }
   
-  // Ïóñòîå ìíîæåñòâî
+  // ÐŸÑƒÑÑ‚Ð¾Ðµ Ð¼Ð½Ð¾Ð¶ÐµÑÑ‚Ð²Ð¾
   public static final IntSet emptySet = new IntSet() { public boolean has(int e) { return false; }};
   
-  // Ïðîâåðêà ðàáîòîñïîñîáíîñòè íåêîòîðûõ îïåðàöèé
+  // ÐŸÑ€Ð¾Ð²ÐµÑ€ÐºÐ° Ñ€Ð°Ð±Ð¾Ñ‚Ð¾ÑÐ¿Ð¾ÑÐ¾Ð±Ð½Ð¾ÑÑ‚Ð¸ Ð½ÐµÐºÐ¾Ñ‚Ð¾Ñ€Ñ‹Ñ… Ð¾Ð¿ÐµÑ€Ð°Ñ†Ð¸Ð¹
   public static void main(String[] args) {
     IntSet oddSet = new IntSet() { public boolean has(int e) { return e % 2 == 1; }};
     System.out.println(difference(oddSet, addElement(emptySet, 3)).has(7));
