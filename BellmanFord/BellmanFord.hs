@@ -70,7 +70,7 @@ bellmanFord start g = if changed
                              | otherwise = (False, k, weights)  -- стабилизация достигнута, заканчиваем работу
              where (ch, newWeights) = bfCycle weights g
 
--- Тестовый маленький граф
+-- Тестовые графы
 testGraph :: Graph Int
 testGraph =
     addArc (0,-2,1) $ addArc (1,2,2) $
@@ -79,3 +79,14 @@ testGraph =
     addArc (4,2,5) $ addArc (4,3,0) $
     addArc (5,1,3) $ addArc (2,-1,1) $
     createGraph 6
+
+testGraph1 :: Int -> Graph Integer
+testGraph1 n = foldr addArcs3
+                  (foldr addArcs2
+                      (foldr addArcs1 initGraph [0..n-1])
+                      [0,2..n-2])
+                  [1,3..n-1]
+    where initGraph = createGraph n
+          addArcs1 k gr = addArc (k, 2, (k+2) `mod` n) gr
+          addArcs2 k gr = addArc (k, 2, (k+1) `mod` n) gr
+          addArcs3 k gr = addArc (k, -1, (k+1) `mod` n) gr
