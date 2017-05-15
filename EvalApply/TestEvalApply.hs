@@ -1,6 +1,10 @@
-﻿module TestEvalApply where
+module TestEvalApply where
+ 
+import EvalApply(Expr(..), interpret)
 
 test :: Expr
+-- let fact = \n.if (EQ0 n) 1 (MULT n (fact (PRED n))) in fact 6
+-- interpret test --> 120
 test = Letrec
    [("fact",
      (Lambda
